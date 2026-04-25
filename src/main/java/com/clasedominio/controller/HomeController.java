@@ -13,7 +13,7 @@ import java.util.List;
 public class HomeController {
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(@RequestParam(required = false) String q, Model model) {
 
         // Creamos una lista de individuos
         List<Individuo> lista = new ArrayList<>();
@@ -36,8 +36,23 @@ public class HomeController {
         lista.add(i1);
         lista.add(i2);
 
-        // Enviamos la lista a la vista con la clave "lista"
-        model.addAttribute("lista", lista);
+        // Si llega q, filtramos por nombre (case-insensitive)
+        List<Individuo> resultado;
+        if (q != null && !q.trim().isEmpty()) {
+            String ql = q.trim().toLowerCase();
+            resultado = new ArrayList<>();
+            for (Individuo ind : lista) {
+                if (ind.getNombre() != null && ind.getNombre().toLowerCase().contains(ql)) {
+                    resultado.add(ind);
+                }
+            }
+        } else {
+            resultado = lista;
+        }
+
+        // Enviamos la consulta y la lista (filtrada) a la vista
+        model.addAttribute("q", q);
+        model.addAttribute("lista", resultado);
 
         // Renderiza templates/index.html
         return "index";

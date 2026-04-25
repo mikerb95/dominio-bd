@@ -10,49 +10,22 @@
 
     <h1>Lista de Individuos</h1>
 
-    <div style="margin-bottom:12px;">
-        <label for="filterName">Buscar por nombre:</label>
-        <input id="filterName" type="text" placeholder="Escriba un nombre..." />
-        <button type="button" id="clearFilter">Limpiar</button>
-    </div>
+    <form method="get" action="/" style="margin-bottom:12px;">
+        <label for="q">Buscar por nombre:</label>
+        <input id="q" name="q" type="text" placeholder="Escriba un nombre..." th:value="${q}" />
+        <button type="submit">Buscar</button>
+        <a th:href="@{/}">Limpiar</a>
+    </form>
 
     <table border="1" cellpadding="8">
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Edad</th>
-                <th>Correo</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
+                </table>
 
-        <tbody>
-            <tr th:each="ind : ${lista}">
-                <td th:text="${ind.nombre}"></td>
-                <td th:text="${ind.apellido}"></td>
-                <td th:text="${ind.edad}"></td>
-                <td th:text="${ind.correo}"></td>
-
-                <td>
-                    <a
-                        th:href="@{/detalle(nombre=${ind.nombre}, apellido=${ind.apellido}, edad=${ind.edad}, correo=${ind.correo})}">
-                        Ver
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    </table>
-
-    <div style="margin-top:16px;">
-        <button type="button" onclick="history.back()">Volver</button>
-        <button type="button" onclick="location.reload()">Recargar</button>
-    </div>
-
-    <script>
-        (function() {
-            const input = document.getElementById('filterName');
+                <div style="margin-top:16px;">
+                    <button type="button" onclick="history.back()">Volver</button>
+                    <button type="button" onclick="location.reload()">Recargar</button>
+                </div>
             const tbody = document.querySelector('table tbody');
             function filter() {
                 const q = (input.value || '').trim().toLowerCase();
@@ -68,7 +41,7 @@
             }
             const clearBtn = document.getElementById('clearFilter');
             if (clearBtn) {
-                clearBtn.addEventListener('click', function() {
+                clearBtn.addEventListener('click', function () {
                     input.value = '';
                     filter();
                     input.focus();
