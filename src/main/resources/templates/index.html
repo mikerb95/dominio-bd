@@ -17,6 +17,7 @@
                 <th>Apellido</th>
                 <th>Edad</th>
                 <th>Correo</th>
+                <th>Acción</th>
             </tr>
         </thead>
 
@@ -26,6 +27,13 @@
                 <td th:text="${ind.apellido}"></td>
                 <td th:text="${ind.edad}"></td>
                 <td th:text="${ind.correo}"></td>
+
+                <td>
+                    <a
+                        th:href="@{/detalle(nombre=${ind.nombre}, apellido=${ind.apellido}, edad=${ind.edad}, correo=${ind.correo})}">
+                        Ver
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>
