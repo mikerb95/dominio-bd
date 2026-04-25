@@ -1,0 +1,6 @@
+#FileLock
+#Sat Apr 25 10:47:41 COT 2026
+hostName=mike-dev
+id=19dc5534197eb91bb7cf04d4dde47d3ab8204ea5158
+method=file
+server=192.168.1.17\:42523
