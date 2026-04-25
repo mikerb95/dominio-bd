@@ -10,6 +10,12 @@
 
     <h1>Lista de Individuos</h1>
 
+    <div style="margin-bottom:12px;">
+        <label for="filterName">Buscar por nombre:</label>
+        <input id="filterName" type="text" placeholder="Escriba un nombre..." />
+        <button type="button" id="clearFilter">Limpiar</button>
+    </div>
+
     <table border="1" cellpadding="8">
         <thead>
             <tr>
@@ -37,12 +43,39 @@
             </tr>
         </tbody>
     </table>
-</table>
+    </table>
 
     <div style="margin-top:16px;">
         <button type="button" onclick="history.back()">Volver</button>
         <button type="button" onclick="location.reload()">Recargar</button>
     </div>
+
+    <script>
+        (function() {
+            const input = document.getElementById('filterName');
+            const tbody = document.querySelector('table tbody');
+            function filter() {
+                const q = (input.value || '').trim().toLowerCase();
+                if (!tbody) return;
+                for (const row of Array.from(tbody.rows)) {
+                    const nameCell = row.cells[0];
+                    const name = nameCell ? nameCell.textContent.trim().toLowerCase() : '';
+                    row.style.display = name.includes(q) ? '' : 'none';
+                }
+            }
+            if (input) {
+                input.addEventListener('input', filter);
+            }
+            const clearBtn = document.getElementById('clearFilter');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    input.value = '';
+                    filter();
+                    input.focus();
+                });
+            }
+        })();
+    </script>
 </body>
 
 </html>
